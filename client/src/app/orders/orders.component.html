@@ -1,0 +1,19 @@
+<div *ngIf="isLoading">Loading orders...</div>
+<div *ngIf="error" style="color: red;">{{ error }}</div>
+
+<div *ngIf="!isLoading && !error && orders.length === 0">
+  You have no orders.
+</div>
+
+<ul *ngIf="!isLoading && !error && orders.length > 0">
+  <li *ngFor="let order of orders">
+    <strong>Order #{{ order.id }}</strong><br />
+    <ul>
+      <li *ngFor="let item of order.items">
+        {{ item.product.name }} — Quantity: {{ item.quantity }} —
+        Price: {{ item.product.price | currency }}
+      </li>
+    </ul>
+    <p><strong>Total:</strong> {{ getTotal(order) | currency }}</p>
+  </li>
+</ul>
