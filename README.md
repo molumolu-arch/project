@@ -59,14 +59,6 @@
 
 ---
 
-## **Authentication and Authorization**
-
-### **POST /api/token/refresh/**
-
-- **Description**: Refreshes an access token using a valid refresh token.
-
----
-
 
 ## **CORS Configuration**
 
