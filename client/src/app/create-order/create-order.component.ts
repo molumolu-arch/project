@@ -19,6 +19,11 @@ export class CreateOrderComponent {
     private orderService: OrderService
   ) {}
 
+  removeItem(item: any) {
+    this.orderService.removeItem(item);
+    this.items = this.orderService.getItems();
+  }
+
   submitOrder() {
     if (this.items.length === 0) {
       this.error = 'Your order is empty.';

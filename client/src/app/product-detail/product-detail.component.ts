@@ -10,9 +10,9 @@ import { inject } from '@angular/core';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product: any;
+  product: any = null;
   orderService = inject(OrderService)
-  error: string = '';
+  error: string | null = null;
   isLoading = true;
 
   constructor(
@@ -21,14 +21,21 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getProduct(productId).subscribe({
-      next: data => {
-        this.product = data;
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.loadProduct(Number(productId));
+    }
+  }
+
+  loadProduct(id: number) {
+    this.isLoading = true;
+    this.productService.getProduct(id).subscribe({
+      next: (product) => {
+        this.product = product;
         this.isLoading = false;
       },
-      error: err => {
-        this.error = 'Product not found.';
+      error: (err) => {
+        this.error = 'Failed to load product';
         this.isLoading = false;
       }
     });
@@ -37,5 +44,10 @@ export class ProductDetailComponent implements OnInit {
   addToOrder(productId: number): void {
     this.orderService.addItem(productId);
     alert('Product added to order!');
+  }
+
+  addToCart(product: any) {
+    // TODO: Implement cart service
+    console.log('Adding to cart:', product);
   }
 }

@@ -19,6 +19,13 @@ export class OrderService {
     }
   }
 
+  removeItem(item: { product_id: number, quantity: number }) {
+    const index = this.items.findIndex(i => i.product_id === item.product_id);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    }
+  }
+
   clearItems() {
     this.items = [];
   }

@@ -1,0 +1,52 @@
+<div class="orders-container">
+  <header class="orders-header">
+    <h2>My Orders</h2>
+    <p class="subtitle">View your order history</p>
+  </header>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading orders...</p>
+  </div>
+
+  <div class="error-container" *ngIf="error">
+    <p class="error-message">{{ error }}</p>
+  </div>
+
+  <div class="orders-list" *ngIf="!isLoading && !error">
+    <div class="order-card" *ngFor="let order of orders">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-id">Order #{{ order.id }}</h3>
+          <p class="order-date">{{ order.created_at | date:'medium' }}</p>
+        </div>
+        <div class="order-status" [ngClass]="'status-' + order.status">
+          {{ order.status }}
+        </div>
+      </div>
+
+      <div class="order-items">
+        <div class="order-item" *ngFor="let item of order.items">
+          <div class="item-info">
+            <span class="item-name">Product #{{ item.product_id }}</span>
+            <span class="item-quantity">x{{ item.quantity }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-footer">
+        <div class="order-total">
+          <span>Total:</span>
+          <span class="total-amount">{{ order.total | currency }}</span>
+        </div>
+        <a [routerLink]="['/orders', order.id]" class="view-details-btn">View Details</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-orders" *ngIf="!isLoading && !error && orders.length === 0">
+    <h3>No orders yet</h3>
+    <p>You haven't placed any orders yet.</p>
+    <a routerLink="/" class="start-shopping-btn">Start Shopping</a>
+  </div>
+</div> 

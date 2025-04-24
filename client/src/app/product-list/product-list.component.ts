@@ -11,8 +11,8 @@ import { OrderService } from '../order.service';
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];
-  isLoading = false;
-  error: string = '';
+  isLoading = true;
+  error: string | null = null;
   categoryId: number = 0;
 
   constructor(
@@ -22,7 +22,8 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.categoryId = Number(this.route.snapshot.paramMap.get('categoryId'));
+    const categoryId = this.route.snapshot.paramMap.get('categoryId');
+    this.categoryId = categoryId ? Number(categoryId) : 0;
     this.loadProducts();
   }
 
@@ -43,5 +44,10 @@ export class ProductListComponent implements OnInit {
   addToOrder(productId: number): void {
     this.orderService.addItem(productId);
     alert('Product added to order!');
+  }
+
+  addToCart(product: any) {
+    // TODO: Implement cart service
+    console.log('Adding to cart:', product);
   }
 }

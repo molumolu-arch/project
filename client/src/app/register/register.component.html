@@ -1,7 +1,17 @@
-<h2>Register</h2>
-<form (ngSubmit)="onRegister()">
-  <input [(ngModel)]="username" name="username" placeholder="Username" required>
-  <input [(ngModel)]="email" name="email" placeholder="Email">
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
-  <button type="submit">Register</button>
-</form>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Register</h2>
+    <form (ngSubmit)="onRegister()" class="auth-form">
+      <div class="form-group">
+        <input [(ngModel)]="username" name="username" placeholder="Username" required class="form-input">
+      </div>
+      <div class="form-group">
+        <input [(ngModel)]="email" name="email" placeholder="Email" class="form-input">
+      </div>
+      <div class="form-group">
+        <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required class="form-input">
+      </div>
+      <button type="submit" class="auth-button">Register</button>
+    </form>
+  </div>
+</div>

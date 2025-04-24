@@ -1,19 +1,26 @@
 <div *ngIf="isLoading">Loading orders...</div>
 <div *ngIf="error" style="color: red;">{{ error }}</div>
 
-<div *ngIf="!isLoading && !error && orders.length === 0">
-  You have no orders.
+<div class="orders-container">
+  <div *ngIf="orders.length === 0" class="empty-orders">
+    No orders found
+  </div>
+  
+  <div *ngFor="let order of orders" class="order-card">
+    <div class="order-header">
+      <span class="order-id">Order #{{ order.id }}</span>
+      <span class="order-date">{{ order.created_at | date }}</span>
+    </div>
+    
+    <div class="order-items">
+      <div *ngFor="let item of order.items" class="order-item">
+        <span class="item-name">{{ item.product.name }}</span>
+        <span class="item-price">{{ item.product.price | currency }}</span>
+      </div>
+    </div>
+    
+    <div class="order-total">
+      Total: {{ order.total | currency }}
+    </div>
+  </div>
 </div>
-
-<ul *ngIf="!isLoading && !error && orders.length > 0">
-  <li *ngFor="let order of orders">
-    <strong>Order #{{ order.id }}</strong><br />
-    <ul>
-      <li *ngFor="let item of order.items">
-        {{ item.product.name }} — Quantity: {{ item.quantity }} —
-        Price: {{ item.product.price | currency }}
-      </li>
-    </ul>
-    <p><strong>Total:</strong> {{ getTotal(order) | currency }}</p>
-  </li>
-</ul>

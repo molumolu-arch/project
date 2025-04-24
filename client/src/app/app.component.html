@@ -1,12 +1,28 @@
-<h1>Online Shop</h1>
-<hr>
-<nav>
-  <a routerLink="/">Home</a> |
-  <a routerLink="/login">Login</a> |
-  <a routerLink="/register">Register</a> |
-  <a routerLink="/categories">Categories</a>|
-  <a routerLink="/create-order">Cart</a>|
-  <a routerLink="/my-orders">Orders</a>|
-  <a href="#" (click)="logout()">Logout</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">Online Shop</h1>
+      <nav class="main-nav">
+        <a routerLink="/" class="nav-link">Home</a>
+        <a routerLink="/categories" class="nav-link">Categories</a>
+        
+        <!-- Show when user is authenticated -->
+        <ng-container *ngIf="isAuthenticated">
+          <a routerLink="/create-order" class="nav-link">Cart</a>
+          <a routerLink="/my-orders" class="nav-link">Orders</a>
+          <span class="username">{{ username }}</span>
+          <a href="#" (click)="logout()" class="nav-link">Logout</a>
+        </ng-container>
+
+        <!-- Show when user is not authenticated -->
+        <ng-container *ngIf="!isAuthenticated">
+          <a routerLink="/login" class="nav-link">Login</a>
+          <a routerLink="/register" class="nav-link">Register</a>
+        </ng-container>
+      </nav>
+    </div>
+  </header>
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

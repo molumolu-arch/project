@@ -1,10 +1,14 @@
 <div *ngIf="isLoading">Loading...</div>
-<div *ngIf="error" style="color: red;">{{ error }}</div>
+<div *ngIf="error" class="error-message">
+  {{ error }}
+</div>
 
-<div *ngIf="product">
-  <h2>{{ product.name }}</h2>
-  <p><strong>Description:</strong> {{ product.description }}</p>
-  <p><strong>Price:</strong> {{ product.price | currency }}</p>
-  <p><strong>Stock:</strong> {{ product.stock }}</p>
-  <button (click)="addToOrder(product.id)">Add to Order</button>
+<div *ngIf="product" class="product-detail-container">
+  <img [src]="product.image" [alt]="product.name" class="product-image">
+  <div class="product-info">
+    <h1 class="product-title">{{ product.name }}</h1>
+    <p class="product-price">{{ product.price | currency }}</p>
+    <p class="product-description">{{ product.description }}</p>
+    <button (click)="addToCart(product)" class="add-to-cart-btn">Add to Cart</button>
+  </div>
 </div>

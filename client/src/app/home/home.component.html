@@ -1,8 +1,28 @@
-<div *ngIf="isLoading">Loading products...</div>
-<div *ngIf="error" style="color: red">{{ error }}</div>
+<div class="home-container">
+  <header class="header">
+    <h1>Welcome to Our Store</h1>
+    <p class="subtitle">Discover our amazing products</p>
+  </header>
 
-<ul *ngIf="!isLoading && !error">
-  <li *ngFor="let product of products">
-    <a [routerLink]="['/products', product.id]">{{ product.name }}</a> - {{ product.price | currency }}
-  </li>
-</ul>
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <div class="error-container" *ngIf="error">
+    <p class="error-message">{{ error }}</p>
+  </div>
+
+  <div class="products-grid" *ngIf="!isLoading && !error">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-image">
+        <img [src]="product.image || 'assets/placeholder-image.jpg'" [alt]="product.name">
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-price">{{ product.price | currency }}</p>
+        <a [routerLink]="['/products', product.id]" class="view-details-btn">View Details</a>
+      </div>
+    </div>
+  </div>
+</div>
