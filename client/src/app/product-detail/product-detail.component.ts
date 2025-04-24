@@ -46,8 +46,8 @@ export class ProductDetailComponent implements OnInit {
     alert('Product added to order!');
   }
 
-  addToCart(product: any) {
-    // TODO: Implement cart service
-    console.log('Adding to cart:', product);
+  addToCart(product: any): void {
+    this.orderService.addItem(product.id);
+    alert(`${product.name} added to cart!`);
   }
 }

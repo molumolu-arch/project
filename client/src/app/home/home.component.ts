@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import { OrderService } from '../order.service';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +12,7 @@ export class HomeComponent {
   products: any[] = [];
   isLoading: boolean = true;
   error: string = '';
+  orderService = inject(OrderService)
 
   constructor(private productService: ProductService) {}
 
@@ -28,5 +31,9 @@ export class HomeComponent {
         this.isLoading = false;
       }
     });
+  }
+  addToCart(product: any): void {
+    this.orderService.addItem(product.id);
+    alert(`${product.name} added to cart!`);
   }
 }

@@ -17,11 +17,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isAuthenticated = this.authService.isLoggedIn();
     if (this.isAuthenticated) {
-      // Get username from localStorage or token
+      this.username = localStorage.getItem('username') || '';
       const token = localStorage.getItem('access_token');
       if (token) {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        this.username = payload.username;
+       
       }
     }
   }

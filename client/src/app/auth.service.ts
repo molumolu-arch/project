@@ -19,6 +19,7 @@ export class AuthService {
       tap((res: any) => {
         localStorage.setItem('access_token', res.access);
         localStorage.setItem('refresh_token', res.refresh);
+        localStorage.setItem('username', res.username);
       })
     );
   }
